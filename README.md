@@ -1,2 +1,3 @@
 # comp120-tinkering-graphics
-Python Code for Re-purposing Graphics Algorithms
+This is the Tinkering Graphics project.
+You complete this project in C#, following the Tinkering Graphics workshop activities and the algorithms on LearningSpace.
