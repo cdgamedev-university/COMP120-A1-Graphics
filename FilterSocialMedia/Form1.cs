@@ -20,7 +20,7 @@ namespace FilterSocialMedia {
         }
 
         private void LoadImage() {
-            string img = "C:\\image.jpg";
+            var img = Resource1._0sat8zoomed0z1l6951;
 
             Bitmap bmp = new Bitmap(img);
 
@@ -45,7 +45,33 @@ namespace FilterSocialMedia {
             return bmp;
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private void ResizeScreen() {
+
+        }
+
+        private void Picture_Click(object sender, EventArgs e)
+        {
 
         }
     }
