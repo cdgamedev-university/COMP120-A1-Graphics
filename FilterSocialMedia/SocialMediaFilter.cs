@@ -28,6 +28,7 @@ namespace FilterSocialMedia {
 
             bmps = BulkMirror(bmps, 2, 0);
             bmps = BulkMakeGreyscale(bmps, 2, 1);
+            bmps = BulkNegative(bmps, 3, 1);
 
             Picture.Image = MergeImage(bmps);
         }
@@ -49,12 +50,31 @@ namespace FilterSocialMedia {
             return bmps;
         }
 
+        Bitmap[] BulkNegative(Bitmap[] bmps, int index, int offset)
+        {
+            if (offset > index - 1)
+            {
+                Console.WriteLine("Error. Offset will not work, please change");
+                return bmps;
+            }
+            for (int i = 0; i < bmps.Length; i++)
+            {
+                if (i % index == offset)
+                {
+                    bmps[i] = Negative(bmps[i]);
+                }
+            }
+
+            return bmps;
+        }
+
+
         Bitmap[] BulkMirror(Bitmap[] bmps, int index, int offset) {
             if (offset > index - 1) {
                 Console.BackgroundColor = ConsoleColor.Red;
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Error. Offset will not work, please change");
-                Console.ResetColor();
+                Console.WriteLine("Error. Offset will not work, please change");  //comments would be nice
+                Console.ResetColor();                                             // have read through and understand, amazing work
                 return bmps;
             }
             for (int i = 0; i < bmps.Length; i++) {
@@ -122,7 +142,33 @@ namespace FilterSocialMedia {
             return bmps;
         }
 
+        Bitmap Negative(Bitmap bmp)
+        {
+            
+            int width = bmp.Width;
+            int height = bmp.Height;
 
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    Color rRem = bmp.GetPixel(i, j);
+                    int a = rRem.A;
+                    int r = rRem.R;
+                    int g = rRem.G;
+                    int b = rRem.B;
+                    int rI = 255 - r;
+                    int gI = 255 - g;
+                    int bI = 255 - b;
+
+
+                    bmp.SetPixel(i, j, Color.FromArgb(a, rI, gI, bI));
+
+                }
+            }
+            return bmp;
+        }
         // make the image greyscale
         Bitmap MakeGreyscale(Bitmap bmp) {
             // get dimensions of image
@@ -140,6 +186,7 @@ namespace FilterSocialMedia {
                     bmp.SetPixel(i, j, pixel);
                 }
             }
+
 
             // return the new image
             return bmp;
