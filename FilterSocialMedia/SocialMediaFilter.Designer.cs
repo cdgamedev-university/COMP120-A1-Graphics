@@ -39,7 +39,6 @@
             this.Picture.Size = new System.Drawing.Size(496, 328);
             this.Picture.TabIndex = 0;
             this.Picture.TabStop = false;
-            this.Picture.Click += new System.EventHandler(this.Picture_Click);
             // 
             // Contract5
             // 
@@ -48,7 +47,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.Picture);
             this.Name = "Contract5";
-            this.Text = "Form1";
+            this.Text = "Social Media Filter Tool";
             this.Load += new System.EventHandler(this.Contract5_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Picture)).EndInit();
             this.ResumeLayout(false);
