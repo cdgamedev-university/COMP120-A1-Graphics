@@ -156,5 +156,10 @@ namespace FilterSocialMedia {
             Picture.Size = new Size(width, height);
             Picture.Location = new Point(0, 0);
         }
+
+        private void Picture_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

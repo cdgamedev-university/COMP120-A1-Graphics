@@ -89,15 +89,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Image.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="0sat8zoomed0z1l6951.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Image0.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Googling Stuff.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
