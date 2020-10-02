@@ -64,7 +64,6 @@ namespace FilterSocialMedia {
                     bmps[i] = Negative(bmps[i]);
                 }
             }
-
             return bmps;
         }
 
