@@ -39,7 +39,6 @@
             this.Picture.Size = new System.Drawing.Size(496, 328);
             this.Picture.TabIndex = 0;
             this.Picture.TabStop = false;
-            this.Picture.Click += new System.EventHandler(this.Picture_Click);
             // 
             // Contract5
             // 
