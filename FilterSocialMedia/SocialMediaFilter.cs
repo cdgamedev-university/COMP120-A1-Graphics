@@ -257,7 +257,6 @@ namespace FilterSocialMedia {
                     Color pixel = bmp.GetPixel(i, j);
 
                     // get the pixel channel values
-                    int a = pixel.A;
                     int r = pixel.R;
                     int g = pixel.G;
                     int b = pixel.B;
@@ -268,13 +267,21 @@ namespace FilterSocialMedia {
                     int bI = 255 - b;
 
                     // set the pixel with the inverted values
-                    bmp.SetPixel(i, j, Color.FromArgb(a, rI, gI, bI));
+                    bmp.SetPixel(i, j, Color.FromArgb(255, rI, gI, bI));
                 }
             }
 
             // return the image
             return bmp;
         }
+
+
+
+
+
+
+
+
 
         // make the image greyscale
         Bitmap MakeGreyscale(Bitmap bmp) {
