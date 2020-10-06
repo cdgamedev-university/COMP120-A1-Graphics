@@ -40,9 +40,9 @@ namespace FilterSocialMedia {
             Bitmap bmp = Image_Resources.Googling_Stuff;
             Bitmap[] bmps = SplitImage(bmp, splits);
 
-            //bmps = BulkMirror(bmps, 4, 0);
+            bmps = BulkMirror(bmps, 4, 0);
             bmps = BulkMakeGreyscale(bmps, 3, 1);
-            //bmps = BulkNegative(bmps, 3, 1);
+            bmps = BulkNegative(bmps, 3, 1);
 
             Picture.Image = MergeImage(bmps);
         }
@@ -275,7 +275,13 @@ namespace FilterSocialMedia {
             return bmp;
         }
 
+        Bitmap RandomTint(Bitmap bmp)
+        {
+            int width = bmp.Width;
+            int height = bmp.Height;
 
+            for (int i = 0; i < )
+        }
 
 
 
