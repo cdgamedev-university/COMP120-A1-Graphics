@@ -41,10 +41,24 @@ namespace FilterSocialMedia {
             Bitmap[] bmps = SplitImage(bmp, splits);
 
             //bmps = BulkMirror(bmps, 4, 0);
-            bmps = BulkMakeGreyscale(bmps, 3, 1);
+            bmps = BulkSwapChannels(bmps, Channel.Blue, Channel.Red, 2, 1);
+            bmps = BulkSwapChannels(bmps, Channel.Green, Channel.Alpha, 2, 0);
+            bmps = BulkSwapChannels(bmps, Channel.Blue, Channel.Green, 3, 0);
             //bmps = BulkNegative(bmps, 3, 1);
 
             Picture.Image = MergeImage(bmps);
+        }
+
+        Bitmap[] BulkSwapChannels(Bitmap[] bmps, Channel channel0, Channel channel1, int multiple, int offset) {
+            for (int i = offset; i < bmps.Length; i++) {
+                // if i is at the right multiple and offset
+                if (i % multiple == offset % multiple) {
+                    // swap channels of the bitmap
+                    bmps[i] = SwapChannels(bmps[i], channel0, channel1);
+                }
+            }
+
+            return bmps;
         }
 
         // swap channels for the image using a Bitmap and then two channel locations
@@ -97,13 +111,13 @@ namespace FilterSocialMedia {
         /// <param name="multiple">the multiple you want to change (ex. 1 for every bitmap, 2 for every 2, 3 for every 3)</param>
         /// <param name="offset">the offset you want to start at (ex. an offset of 1 will skip the first one)</param>
         /// <returns></returns>
-        Bitmap[] BulkMakeGreyscale(Bitmap[] bmps, int multiple, int offset) {
+        Bitmap[] BulkGreyscale(Bitmap[] bmps, int multiple, int offset) {
             // run through the bitmaps (starting at offset)
             for (int i = offset; i < bmps.Length; i++) {
                 // if i is at the right multiple and offset
                 if (i % multiple == offset % multiple) {
                     // make the bitmap greyscale
-                    bmps[i] = MakeGreyscale(bmps[i]);
+                    bmps[i] = Greyscale(bmps[i]);
                 }
             }
 
@@ -275,16 +289,8 @@ namespace FilterSocialMedia {
             return bmp;
         }
 
-
-
-
-
-
-
-
-
         // make the image greyscale
-        Bitmap MakeGreyscale(Bitmap bmp) {
+        Bitmap Greyscale(Bitmap bmp) {
             // get dimensions of image
             int width = bmp.Width;
             int height = bmp.Height;
