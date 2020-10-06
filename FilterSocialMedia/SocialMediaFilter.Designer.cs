@@ -40,7 +40,7 @@
             // 
             // Picture
             // 
-            this.Picture.Location = new System.Drawing.Point(135, 60);
+            this.Picture.Location = new System.Drawing.Point(732, 120);
             this.Picture.Name = "Picture";
             this.Picture.Size = new System.Drawing.Size(496, 328);
             this.Picture.TabIndex = 0;
