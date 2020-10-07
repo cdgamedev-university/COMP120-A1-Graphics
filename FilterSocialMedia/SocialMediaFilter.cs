@@ -30,24 +30,21 @@ namespace FilterSocialMedia {
 
         // load the form
         private void Contract5_Load(object sender, EventArgs e) {
-            LoadImage();
+            Bitmap bmp = Image_Resources.Googling_Stuff;
+            Picture.Image = LoadImage(bmp);
             SetupWindow();
         }
 
         // load in the image and make changes
-        private void LoadImage() {
+        Bitmap LoadImage(Bitmap bmp) {
             int splits = 10;
-            Bitmap bmp = Image_Resources.Googling_Stuff;
             Bitmap[] bmps = SplitImage(bmp, splits);
 
-            //bmps = BulkMirror(bmps, 4, 0);
             bmps = BulkSwapChannels(bmps, Channel.Blue, Channel.Red, 2, 1);
             bmps = BulkSwapChannels(bmps, Channel.Green, Channel.Alpha, 2, 0);
             bmps = BulkSwapChannels(bmps, Channel.Blue, Channel.Green, 3, 0);
-            //bmps = BulkNegative(bmps, 3, 1);
 
-            Picture.Image = MergeImage(bmps);
-
+             return MergeImage(bmps);
         }
 
         Bitmap[] BulkSwapChannels(Bitmap[] bmps, Channel channel0, Channel channel1, int multiple, int offset) {
@@ -317,18 +314,15 @@ namespace FilterSocialMedia {
         private void SetupWindow() {
             // resize the screen to fit the image
             int width = Picture.Image.Width + 250;
-            int height = Picture.Image.Height;
+            int height = Picture.Image.Width + SystemInformation.CaptionHeight;
             this.Size = new Size(width, height);
 
             // resize and reposition the image
-            Picture.Size = new Size(width, height);
             Picture.Location = new Point(0, 0);
         }
 
-        private void GreyscaleChk_CheckedChanged(object sender, EventArgs e)
-        {
+        private void GreyscaleChk_CheckedChanged(object sender, EventArgs e) {
 
-            BulkGreyscale(Bitmap[] bmps, 1, 2);
         }
     }
 }

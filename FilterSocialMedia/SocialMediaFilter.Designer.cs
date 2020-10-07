@@ -41,9 +41,10 @@
             // 
             // Picture
             // 
-            this.Picture.Location = new System.Drawing.Point(12, 12);
+            this.Picture.Location = new System.Drawing.Point(232, 151);
             this.Picture.Name = "Picture";
-            this.Picture.Size = new System.Drawing.Size(488, 426);
+            this.Picture.Size = new System.Drawing.Size(204, 181);
+            this.Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.Picture.TabIndex = 0;
             this.Picture.TabStop = false;
             // 
@@ -123,6 +124,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Picture);
             this.Controls.Add(this.checkBox7);
             this.Controls.Add(this.checkBox6);
             this.Controls.Add(this.checkBox5);
@@ -130,7 +132,7 @@
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.ColourInvChk);
             this.Controls.Add(this.GreyscaleChk);
-            this.Controls.Add(this.Picture);
+            this.DoubleBuffered = true;
             this.Name = "Contract5";
             this.Text = "Social Media Filter Tool";
             this.Load += new System.EventHandler(this.Contract5_Load);
