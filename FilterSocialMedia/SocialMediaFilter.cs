@@ -47,6 +47,7 @@ namespace FilterSocialMedia {
             //bmps = BulkNegative(bmps, 3, 1);
 
             Picture.Image = MergeImage(bmps);
+
         }
 
         Bitmap[] BulkSwapChannels(Bitmap[] bmps, Channel channel0, Channel channel1, int multiple, int offset) {
@@ -315,13 +316,19 @@ namespace FilterSocialMedia {
         // set up the window and image
         private void SetupWindow() {
             // resize the screen to fit the image
-            int width = Picture.Image.Width;
+            int width = Picture.Image.Width + 250;
             int height = Picture.Image.Height;
             this.Size = new Size(width, height);
 
             // resize and reposition the image
             Picture.Size = new Size(width, height);
             Picture.Location = new Point(0, 0);
+        }
+
+        private void GreyscaleChk_CheckedChanged(object sender, EventArgs e)
+        {
+
+            BulkGreyscale(Bitmap[] bmps, 1, 2);
         }
     }
 }
