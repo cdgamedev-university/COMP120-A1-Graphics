@@ -28,16 +28,19 @@ namespace FilterSocialMedia {
             InitializeComponent();
         }
 
+
+
         // load the form
         private void Contract5_Load(object sender, EventArgs e) {
-            LoadImage();
+            Bitmap bmp = Image_Resources.Googling_Stuff;
+            Picture.Image = LoadImage(bmp); 
             SetupWindow();
+
         }
 
         // load in the image and make changes
-        private void LoadImage() {
+        Bitmap LoadImage(Bitmap bmp) {
             int splits = 10;
-            Bitmap bmp = Image_Resources.Googling_Stuff;
             Bitmap[] bmps = SplitImage(bmp, splits);
 
             //bmps = BulkMirror(bmps, 4, 0);
@@ -46,9 +49,17 @@ namespace FilterSocialMedia {
             bmps = BulkSwapChannels(bmps, Channel.Blue, Channel.Green, 3, 0);
             //bmps = BulkNegative(bmps, 3, 1);
 
-            Picture.Image = MergeImage(bmps);
+            if (GreyscaleChk.Checked == true)
+            {
+                BulkGreyscale(bmps, 2, 1);
+            }
+
+
+
+            return MergeImage(bmps);
 
         }
+
 
         Bitmap[] BulkSwapChannels(Bitmap[] bmps, Channel channel0, Channel channel1, int multiple, int offset) {
             for (int i = offset; i < bmps.Length; i++) {
@@ -317,7 +328,7 @@ namespace FilterSocialMedia {
         private void SetupWindow() {
             // resize the screen to fit the image
             int width = Picture.Image.Width + 250;
-            int height = Picture.Image.Height;
+            int height = Picture.Image.Height + 45;
             this.Size = new Size(width, height);
 
             // resize and reposition the image
@@ -325,10 +336,15 @@ namespace FilterSocialMedia {
             Picture.Location = new Point(0, 0);
         }
 
-        private void GreyscaleChk_CheckedChanged(object sender, EventArgs e)
+        void GreyscaleChk_CheckedChanged(object sender, EventArgs e)
         {
+            Bitmap bmp = Image_Resources.Googling_Stuff;
+            if (GreyscaleChk.Checked == true)
+            {
+                Picture.Image = LoadImage(bmp);
+            }
 
-            BulkGreyscale(Bitmap[] bmps, 1, 2);
+            //BulkGreyscale(Bitmap[] bmp, 1, 2);
         }
     }
 }
