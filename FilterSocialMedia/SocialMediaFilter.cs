@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -14,6 +15,8 @@ using System.Windows.Forms.VisualStyles;
 
 namespace FilterSocialMedia {
     public partial class Contract5 : Form {
+
+        public List<Bitmap> bmps = new List<Bitmap>();
 
         // different color channels and their corresponding location values (DO NOT CHANGE)
         public enum Channel {
@@ -31,24 +34,35 @@ namespace FilterSocialMedia {
         // load the form
         private void Contract5_Load(object sender, EventArgs e) {
             Bitmap bmp = Image_Resources.Googling_Stuff;
-            Picture.Image = LoadImage(bmp);
+            int splits = 10;
+            bmps = SplitImage(bmp, splits);
+            Picture.Image = ManipulateImage(bmp);
             SetupWindow();
         }
 
         // load in the image and make changes
-        Bitmap LoadImage(Bitmap bmp) {
-            int splits = 10;
-            Bitmap[] bmps = SplitImage(bmp, splits);
+        Bitmap ManipulateImage(Bitmap bmp) {
+            if (GreyscaleChk.Checked == true) {
+                BulkGreyscale(2, 1);
+            }
 
-            bmps = BulkSwapChannels(bmps, Channel.Blue, Channel.Red, 2, 1);
-            bmps = BulkSwapChannels(bmps, Channel.Green, Channel.Alpha, 2, 0);
-            bmps = BulkSwapChannels(bmps, Channel.Blue, Channel.Green, 3, 0);
-
-             return MergeImage(bmps);
+            return MergeImage(bmps);
         }
 
-        Bitmap[] BulkSwapChannels(Bitmap[] bmps, Channel channel0, Channel channel1, int multiple, int offset) {
-            for (int i = offset; i < bmps.Length; i++) {
+        // set up the window and image
+        private void SetupWindow() {
+            // resize the screen to fit the image
+            int width = Picture.Image.Width + 250;
+            int height = Picture.Image.Height;
+            this.Size = new Size(width, height);
+
+            // resize and reposition the image
+            Picture.Size = new Size(width, height);
+            Picture.Location = new Point(0, 0);
+        }
+
+        List<Bitmap> BulkSwapChannels(Channel channel0, Channel channel1, int multiple, int offset) {
+            for (int i = offset; i < bmps.Count; i++) {
                 // if i is at the right multiple and offset
                 if (i % multiple == offset % multiple) {
                     // swap channels of the bitmap
@@ -109,9 +123,9 @@ namespace FilterSocialMedia {
         /// <param name="multiple">the multiple you want to change (ex. 1 for every bitmap, 2 for every 2, 3 for every 3)</param>
         /// <param name="offset">the offset you want to start at (ex. an offset of 1 will skip the first one)</param>
         /// <returns></returns>
-        Bitmap[] BulkGreyscale(Bitmap[] bmps, int multiple, int offset) {
+        List<Bitmap> BulkGreyscale(int multiple, int offset) {
             // run through the bitmaps (starting at offset)
-            for (int i = offset; i < bmps.Length; i++) {
+            for (int i = offset; i < bmps.Count; i++) {
                 // if i is at the right multiple and offset
                 if (i % multiple == offset % multiple) {
                     // make the bitmap greyscale
@@ -130,9 +144,9 @@ namespace FilterSocialMedia {
         /// <param name="multiple">the multiple you want to change (ex. 1 for every bitmap, 2 for every 2, 3 for every 3)</param>
         /// <param name="offset">the offset you want to start at (ex. an offset of 1 will skip the first one)</param>
         /// <returns></returns>
-        Bitmap[] BulkNegative(Bitmap[] bmps, int multiple, int offset) {
+        List<Bitmap> BulkNegative(int multiple, int offset) {
             // run through the bitmaps (startign at the offset)
-            for (int i = offset; i < bmps.Length; i++) {
+            for (int i = offset; i < bmps.Count; i++) {
                 // if i is at the right multiple and offset
                 if (i % multiple == offset % multiple) {
                     // make the bitmap negative
@@ -151,9 +165,9 @@ namespace FilterSocialMedia {
         /// <param name="multiple">the multiple you want to change (ex. 1 for every bitmap, 2 for every 2, 3 for every 3)</param>
         /// <param name="offset">the offset you want to start at (ex. an offset of 1 will skip the first one)</param>
         /// <returns></returns>
-        Bitmap[] BulkMirror(Bitmap[] bmps, int multiple, int offset) {
+        List<Bitmap> BulkMirror(int multiple, int offset) {
             // run through the bitmaps (startign at the offset)
-            for (int i = offset; i < bmps.Length; i++) {
+            for (int i = offset; i < bmps.Count; i++) {
                 // if i is at the right multiple and offset
                 if (i % multiple == offset % multiple) {
                     // mirror the bitmap
@@ -189,13 +203,13 @@ namespace FilterSocialMedia {
         }
 
         // merge a split image together
-        Bitmap MergeImage(Bitmap[] bmps) {
+        Bitmap MergeImage(List<Bitmap> bmps) {
             // calculate the amount of splits
-            int splits = bmps.Length;
+            int splits = bmps.Count;
 
             // get the width and height of the final bitmap
             int width = bmps[0].Width;
-            int height = bmps[0].Height * (splits - 1) + bmps[bmps.Length - 1].Height;
+            int height = bmps[0].Height * (splits - 1) + bmps[bmps.Count - 1].Height;
 
             // create a new bitmap for the images to merge into
             Bitmap bmp = new Bitmap(width, height);
@@ -217,7 +231,7 @@ namespace FilterSocialMedia {
 
 
         // split up images into several bitmaps
-        Bitmap[] SplitImage(Bitmap bmp, int splits) {
+        List<Bitmap> SplitImage(Bitmap bmp, int splits) {
             // get the dimensions of the bitmap
             int width = bmp.Width;
             int height = bmp.Height;
@@ -235,7 +249,7 @@ namespace FilterSocialMedia {
             int h = (int) Math.Ceiling((double)height / splitHeight);
 
             // create a new list of the correct length to store the bitmaps
-            Bitmap[] bmps = new Bitmap[h];
+            bmps = new List<Bitmap>(h);
 
             // run through every pixel of the bitmap
             for (var i = 0; i < width; i++) {
@@ -243,8 +257,8 @@ namespace FilterSocialMedia {
                     // calculate which split should be worked on now
                     int currentSplit = (int) j / (height / splits);
                     // if the split doest exist, make a new bitmap
-                    if (bmps[currentSplit] == null) {
-                        bmps[currentSplit] = new Bitmap(width, height / splits);
+                    if (bmps.Count == currentSplit) {
+                        bmps.Add(new Bitmap(width, height / splits));
                     }
                     
                     // set the pixel from the current location to the right location on the split
@@ -305,24 +319,21 @@ namespace FilterSocialMedia {
                 }
             }
 
-
             // return the new image
             return bmp;
         }
 
-        // set up the window and image
-        private void SetupWindow() {
-            // resize the screen to fit the image
-            int width = Picture.Image.Width + 250;
-            int height = Picture.Image.Width + SystemInformation.CaptionHeight;
-            this.Size = new Size(width, height);
+        void GreyscaleChk_CheckedChanged(object sender, EventArgs e) {
+            Stopwatch s = Stopwatch.StartNew();
 
-            // resize and reposition the image
-            Picture.Location = new Point(0, 0);
-        }
+            Bitmap bmp = Image_Resources.Googling_Stuff;
+            if (GreyscaleChk.Checked) {
+                Picture.Image = ManipulateImage(bmp);
+            }
 
-        private void GreyscaleChk_CheckedChanged(object sender, EventArgs e) {
+            s.Stop();
 
+            Console.WriteLine($"Execution Time: {s.ElapsedMilliseconds} ms");
         }
     }
 }

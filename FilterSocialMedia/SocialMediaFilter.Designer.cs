@@ -41,7 +41,7 @@
             // 
             // Picture
             // 
-            this.Picture.Location = new System.Drawing.Point(232, 151);
+            this.Picture.Location = new System.Drawing.Point(-10, -90);
             this.Picture.Name = "Picture";
             this.Picture.Size = new System.Drawing.Size(204, 181);
             this.Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -51,7 +51,7 @@
             // GreyscaleChk
             // 
             this.GreyscaleChk.AutoSize = true;
-            this.GreyscaleChk.Location = new System.Drawing.Point(572, 128);
+            this.GreyscaleChk.Location = new System.Drawing.Point(596, 28);
             this.GreyscaleChk.Name = "GreyscaleChk";
             this.GreyscaleChk.Size = new System.Drawing.Size(73, 17);
             this.GreyscaleChk.TabIndex = 1;
@@ -62,7 +62,7 @@
             // ColourInvChk
             // 
             this.ColourInvChk.AutoSize = true;
-            this.ColourInvChk.Location = new System.Drawing.Point(572, 151);
+            this.ColourInvChk.Location = new System.Drawing.Point(596, 51);
             this.ColourInvChk.Name = "ColourInvChk";
             this.ColourInvChk.Size = new System.Drawing.Size(91, 17);
             this.ColourInvChk.TabIndex = 2;
@@ -72,7 +72,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(572, 174);
+            this.checkBox3.Location = new System.Drawing.Point(596, 74);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(80, 17);
             this.checkBox3.TabIndex = 3;
@@ -82,7 +82,7 @@
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(572, 197);
+            this.checkBox4.Location = new System.Drawing.Point(596, 97);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(80, 17);
             this.checkBox4.TabIndex = 4;
@@ -92,7 +92,7 @@
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(572, 220);
+            this.checkBox5.Location = new System.Drawing.Point(596, 120);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(80, 17);
             this.checkBox5.TabIndex = 5;
@@ -102,7 +102,7 @@
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(572, 243);
+            this.checkBox6.Location = new System.Drawing.Point(596, 143);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(80, 17);
             this.checkBox6.TabIndex = 6;
@@ -112,7 +112,7 @@
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(572, 266);
+            this.checkBox7.Location = new System.Drawing.Point(596, 166);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(80, 17);
             this.checkBox7.TabIndex = 7;
@@ -123,8 +123,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.Picture);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(800, 295);
             this.Controls.Add(this.checkBox7);
             this.Controls.Add(this.checkBox6);
             this.Controls.Add(this.checkBox5);
@@ -132,8 +132,10 @@
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.ColourInvChk);
             this.Controls.Add(this.GreyscaleChk);
+            this.Controls.Add(this.Picture);
             this.DoubleBuffered = true;
             this.Name = "Contract5";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Social Media Filter Tool";
             this.Load += new System.EventHandler(this.Contract5_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Picture)).EndInit();
