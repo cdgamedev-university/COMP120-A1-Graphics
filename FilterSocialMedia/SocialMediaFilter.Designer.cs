@@ -29,109 +29,26 @@
         private void InitializeComponent()
         {
             this.Picture = new System.Windows.Forms.PictureBox();
-            this.GreyscaleChk = new System.Windows.Forms.CheckBox();
-            this.ColourInvChk = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.Picture)).BeginInit();
             this.SuspendLayout();
             // 
             // Picture
             // 
-            this.Picture.Location = new System.Drawing.Point(-10, -90);
+            this.Picture.Location = new System.Drawing.Point(0, 0);
+            this.Picture.Margin = new System.Windows.Forms.Padding(0);
             this.Picture.Name = "Picture";
-            this.Picture.Size = new System.Drawing.Size(204, 181);
-            this.Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Picture.Size = new System.Drawing.Size(100, 100);
+            this.Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Picture.TabIndex = 0;
             this.Picture.TabStop = false;
-            // 
-            // GreyscaleChk
-            // 
-            this.GreyscaleChk.AutoSize = true;
-            this.GreyscaleChk.Location = new System.Drawing.Point(596, 28);
-            this.GreyscaleChk.Name = "GreyscaleChk";
-            this.GreyscaleChk.Size = new System.Drawing.Size(73, 17);
-            this.GreyscaleChk.TabIndex = 1;
-            this.GreyscaleChk.Text = "Grayscale";
-            this.GreyscaleChk.UseVisualStyleBackColor = true;
-            this.GreyscaleChk.CheckedChanged += new System.EventHandler(this.GreyscaleChk_CheckedChanged);
-            // 
-            // ColourInvChk
-            // 
-            this.ColourInvChk.AutoSize = true;
-            this.ColourInvChk.Location = new System.Drawing.Point(596, 51);
-            this.ColourInvChk.Name = "ColourInvChk";
-            this.ColourInvChk.Size = new System.Drawing.Size(91, 17);
-            this.ColourInvChk.TabIndex = 2;
-            this.ColourInvChk.Text = "Invert Colours";
-            this.ColourInvChk.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(596, 74);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(80, 17);
-            this.checkBox3.TabIndex = 3;
-            this.checkBox3.Text = "checkBox3";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(596, 97);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(80, 17);
-            this.checkBox4.TabIndex = 4;
-            this.checkBox4.Text = "checkBox4";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox5
-            // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(596, 120);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(80, 17);
-            this.checkBox5.TabIndex = 5;
-            this.checkBox5.Text = "checkBox5";
-            this.checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // checkBox6
-            // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(596, 143);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(80, 17);
-            this.checkBox6.TabIndex = 6;
-            this.checkBox6.Text = "checkBox6";
-            this.checkBox6.UseVisualStyleBackColor = true;
-            // 
-            // checkBox7
-            // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(596, 166);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(80, 17);
-            this.checkBox7.TabIndex = 7;
-            this.checkBox7.Text = "checkBox7";
-            this.checkBox7.UseVisualStyleBackColor = true;
             // 
             // Contract5
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(800, 295);
-            this.Controls.Add(this.checkBox7);
-            this.Controls.Add(this.checkBox6);
-            this.Controls.Add(this.checkBox5);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.ColourInvChk);
-            this.Controls.Add(this.GreyscaleChk);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(800, 287);
             this.Controls.Add(this.Picture);
             this.DoubleBuffered = true;
             this.Name = "Contract5";
@@ -140,20 +57,12 @@
             this.Load += new System.EventHandler(this.Contract5_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Picture)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.PictureBox Picture;
-        private System.Windows.Forms.CheckBox GreyscaleChk;
-        private System.Windows.Forms.CheckBox ColourInvChk;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.CheckBox checkBox7;
     }
 }
 

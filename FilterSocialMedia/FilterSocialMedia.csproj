@@ -91,5 +91,11 @@
   <ItemGroup>
     <None Include="Resources\Googling Stuff.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Capture.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Capture.JPG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

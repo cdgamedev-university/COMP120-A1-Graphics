@@ -18,8 +18,8 @@ namespace FilterSocialMedia {
 
         public static List<Bitmap> bmps = new List<Bitmap>();
 
-        const int MAX_IMAGE_WIDTH = 960;
-        const int MAX_IMAGE_HEIGHT = 540;
+        const float MAX_IMAGE_WIDTH = 960f;
+        const float MAX_IMAGE_HEIGHT = 540f;
 
         // initialise the form
         public Contract5() {
@@ -30,10 +30,10 @@ namespace FilterSocialMedia {
         private void Contract5_Load(object sender, EventArgs e) {
             Stopwatch s = Stopwatch.StartNew();
 
-            Bitmap bmp = Image_Resources.Googling_Stuff;
+            Bitmap bmp = Image_Resources.Capture;
             int splits = 10;
             ImageTool.Split(bmp, splits);
-            Picture.Image = ManipulateImage(bmp);
+            Picture.Image = bmp;
             SetupWindow();
 
             s.Stop();
@@ -41,44 +41,38 @@ namespace FilterSocialMedia {
         }
 
         // load in the image and make changes
-        Bitmap ManipulateImage(Bitmap bmp) {
-            if (GreyscaleChk.Checked == true) {
-                Greyscale.Bulk(2, 1);
-            }
+        void ManipulateImage() {
+            Stopwatch s = Stopwatch.StartNew();
 
-            return ImageTool.Merge(bmps);
+            Picture.Image = ImageTool.Merge(bmps);
+            s.Stop();
+            Console.WriteLine($"Execution Time: {s.ElapsedMilliseconds} ms");
         }
 
         // set up the window and image
         private void SetupWindow() {
             // resize the screen to fit the image
-            int width = Picture.Image.Width;
-            int height = Picture.Image.Height;
+            float width = Picture.Image.Width;
+            float height = Picture.Image.Height;
 
             if (width > Screen.PrimaryScreen.WorkingArea.Width) {
-                height = (MAX_IMAGE_WIDTH / width) * height;
+                height = MAX_IMAGE_WIDTH / width * height;
                 width = MAX_IMAGE_WIDTH;
-            } else if (height > Screen.PrimaryScreen.WorkingArea.Height) {
+            }
+            if (height > Screen.PrimaryScreen.WorkingArea.Height) {
                 width = (MAX_IMAGE_HEIGHT / height) * width;
                 height = MAX_IMAGE_HEIGHT;
             }
 
+            Console.WriteLine("Width: " + width + ", Height: " + height);
+
+            int widthI = (int) Math.Floor((double) width);
+            int heightI = (int) Math.Floor((double) height);
+
             // resize and reposition the image
             Picture.SizeMode = PictureBoxSizeMode.Zoom;
-            Picture.Size = new Size(width, height);
+            Picture.Size = new Size(widthI, heightI);
             Picture.Location = new Point(0, 0);
-        }
-
-        void GreyscaleChk_CheckedChanged(object sender, EventArgs e) {
-            Stopwatch s = Stopwatch.StartNew();
-
-            Bitmap bmp = Image_Resources.Googling_Stuff;
-            if (GreyscaleChk.Checked) {
-                Picture.Image = ManipulateImage(bmp);
-            }
-
-            s.Stop();
-            Console.WriteLine($"Execution Time: {s.ElapsedMilliseconds} ms");
         }
     }
 
