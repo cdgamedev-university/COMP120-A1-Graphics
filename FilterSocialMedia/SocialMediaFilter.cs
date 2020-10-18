@@ -18,8 +18,8 @@ namespace FilterSocialMedia {
 
         public static List<Bitmap> bmps = new List<Bitmap>();
 
-        const float MAX_IMAGE_WIDTH = 960f;
-        const float MAX_IMAGE_HEIGHT = 540f;
+        const float MAX_IMAGE_WIDTH = 1280f;
+        const float MAX_IMAGE_HEIGHT = 720f;
 
         // initialise the form
         public Contract5() {
@@ -30,10 +30,10 @@ namespace FilterSocialMedia {
         private void Contract5_Load(object sender, EventArgs e) {
             Stopwatch s = Stopwatch.StartNew();
 
-            Bitmap bmp = Image_Resources.Capture;
-            int splits = 10;
+            Bitmap bmp = Image_Resources.Googling_Stuff;
+            int splits = 100;
             ImageTool.Split(bmp, splits);
-            Picture.Image = bmp;
+            ManipulateImage();
             SetupWindow();
 
             s.Stop();
@@ -43,6 +43,9 @@ namespace FilterSocialMedia {
         // load in the image and make changes
         void ManipulateImage() {
             Stopwatch s = Stopwatch.StartNew();
+
+            Mirror.Bulk(2, 0);
+            Negative.Bulk(2, 1);
 
             Picture.Image = ImageTool.Merge(bmps);
             s.Stop();
