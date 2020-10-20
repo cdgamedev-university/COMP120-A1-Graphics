@@ -69,7 +69,7 @@
             // btnExportImage
             // 
             this.btnExportImage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnExportImage.Location = new System.Drawing.Point(260, 220);
+            this.btnExportImage.Location = new System.Drawing.Point(190, 260);
             this.btnExportImage.MaximumSize = new System.Drawing.Size(120, 40);
             this.btnExportImage.Name = "btnExportImage";
             this.btnExportImage.Size = new System.Drawing.Size(120, 40);
@@ -82,7 +82,7 @@
             // btnRestart
             // 
             this.btnRestart.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnRestart.Location = new System.Drawing.Point(260, 260);
+            this.btnRestart.Location = new System.Drawing.Point(330, 260);
             this.btnRestart.MaximumSize = new System.Drawing.Size(120, 40);
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Size = new System.Drawing.Size(120, 40);
