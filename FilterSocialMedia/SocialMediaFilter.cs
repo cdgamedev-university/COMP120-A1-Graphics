@@ -12,12 +12,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using System.Drawing.Imaging;
 
 namespace FilterSocialMedia {
     public partial class Contract5 : Form {
 
+        // initialize an array to store the images' sections
         public static List<Bitmap> bmps = new List<Bitmap>();
 
+        // set a constant image width and height
         const float MAX_IMAGE_WIDTH = 1280f;
         const float MAX_IMAGE_HEIGHT = 720f;
 
@@ -28,54 +31,263 @@ namespace FilterSocialMedia {
 
         // load the form
         private void Contract5_Load(object sender, EventArgs e) {
-            Stopwatch s = Stopwatch.StartNew();
-
-            Bitmap bmp = Image_Resources.Googling_Stuff;
-            int splits = 100;
-            ImageTool.Split(bmp, splits);
-            ManipulateImage();
-            SetupWindow();
-
-            s.Stop();
-            Console.WriteLine($"Execution Time: {s.ElapsedMilliseconds} ms");
+            // run the start program function
+            StartProgram();
         }
 
-        // load in the image and make changes
-        void ManipulateImage() {
+
+        // start the program
+        void StartProgram() {
+            // start a stop watch
             Stopwatch s = Stopwatch.StartNew();
 
+            // reset the Bitmap list
+            bmps = new List<Bitmap>();
+
+            // set the image to a default image
+            Picture.Image = Image_Resources.NoImage;
+
+            // setup the window
+            SetupWindow();
+
+            // stop the stop watch
+            s.Stop();
+
+            // log how long the program took to start
+            Console.WriteLine($"Program started in: {s.ElapsedMilliseconds} ms");
+        }
+
+        // load the image
+        void LoadImage() {
+            // create a new dialog to import any bitmap image
+            OpenFileDialog OFDialog = new OpenFileDialog {
+                // set the initial directory to be the C drive
+                InitialDirectory = "C:\\",
+                // add some filters to the dialog
+                Filter = "Supported image files (*.bmp, *.gif, *.exif, *.jpg, *.png, *.tiff)|*.bmp;*.exif;*.gif;*.jpg;*.png;*.tiff|"    // supported files
+                + "All files (*.*)|*.*",                                                                                                // all files
+                FilterIndex = 1,            // start the filter index at 1 (supported files)
+                RestoreDirectory = true,    // enable restoring directory when the dialog is closed
+                Title = "Load an image..."  // change the title to something more fitting
+            };
+
+            // if the dialog opens a file
+            if (OFDialog.ShowDialog() == DialogResult.OK) {
+                // start a stop watch
+                Stopwatch s = Stopwatch.StartNew();
+
+                // start a try catch for errors
+                try {
+                    // try running this code:
+
+                    // load the file path
+                    string filePath = OFDialog.FileName;
+                    // load the bitmap from the file
+                    Bitmap bmp = new Bitmap(filePath);
+                    // set the image to the loaded bitmap
+                    Picture.Image = bmp;
+                } catch {
+                    // in the event of an error:
+
+                    // set the message for the user
+                    string message = "This file doesn't appear to be a supported image format. Please choose a different image.";
+                    // set the title of the dialog
+                    string caption = "Image Import Error";
+                    // set the buttons for the message box
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    // show the message box
+                    MessageBox.Show(message, caption, buttons);
+                    // rerun the function
+                    LoadImage();
+                }
+                // stop the stop watch
+                s.Stop();
+
+                // log how long the image took to load
+                Console.WriteLine($"Image loaded in: {s.ElapsedMilliseconds} ms");
+            }
+        }
+
+        // function for saving the image
+        void SaveImage() {
+
+            // create a new save file dialog
+            SaveFileDialog SFDialog = new SaveFileDialog {
+                InitialDirectory = "C:\\",              // set the starting directory to the C drive
+                // create a filter
+                Filter = "Bitmap file (*.bmp)|*.bmp"    // bitmap file saving
+                + "|GIF file (*.gif)|*.gif"             // gif file saving
+                + "|exif file (*.exif)|*.exif"          // exif file saving
+                + "|JPeg file (*.jpg)|*.jpg"            // jpg file saving
+                + "|PNG file (*.png)|*.png"             // png file saving
+                + "|TIFF file (*.tiff)|*.tiff",         // tiff file saving
+                // start the filter at png files (common format)
+                FilterIndex = 5,
+                // set the title
+                Title = "Save an image..."              
+            };
+            // show the dialog
+            SFDialog.ShowDialog();
+
+            // if the filename is not blank
+            if (SFDialog.FileName != "") {
+                // start a stop watch
+                Stopwatch s = Stopwatch.StartNew();
+
+                // switch the filter indexx
+                switch (SFDialog.FilterIndex) {
+                    // save as bmp
+                    case 1:
+                        Picture.Image.Save(SFDialog.FileName, ImageFormat.Bmp);
+                        break;
+                    // save as gif
+                    case 2:
+                        Picture.Image.Save(SFDialog.FileName, ImageFormat.Gif);
+                        break;
+                    // save as exif
+                    case 3:
+                        Picture.Image.Save(SFDialog.FileName, ImageFormat.Exif);
+                        break;
+                    // save as jpeg
+                    case 4:
+                        Picture.Image.Save(SFDialog.FileName, ImageFormat.Jpeg);
+                        break;
+                    // save as png
+                    case 5:
+                        Picture.Image.Save(SFDialog.FileName, ImageFormat.Png);
+                        break;
+                    // save as tiff
+                    case 6:
+                        Picture.Image.Save(SFDialog.FileName, ImageFormat.Tiff);
+                        break;
+                }
+                // stop the stop watch
+                s.Stop();
+
+                // log how long the image took to save
+                Console.WriteLine($"Image saved in: {s.ElapsedMilliseconds} ms");
+            }
+        }
+
+        // make changes to the image
+        void ManipulateImage() {
+            // start a stop watch
+            Stopwatch s = Stopwatch.StartNew();
+
+            // set the amount of splits
+            int splits = 500;
+
+            // split the image
+            ImageTool.Split(new Bitmap(Picture.Image), splits);
+            
+            // mirror every 2 sections (2n)
             Mirror.Bulk(2, 0);
+
+            // make every 2 sections negative offset by 1 (2n+1)
             Negative.Bulk(2, 1);
 
+            // swap the red and blue channels for every 3 seconds offset by 0 (3n)
+            SwapChannels.Bulk(SwapChannels.Channel.Blue, SwapChannels.Channel.Red, 3, 0);
+
+            // make every 3 sections greyscale offset by 2 (3n+2)
+            Greyscale.Bulk(3, 2);
+
+            // merge the new image and show it
             Picture.Image = ImageTool.Merge(bmps);
+
+            // setup the windows
+            SetupWindow();
+            
+            // stop the stop watch
             s.Stop();
-            Console.WriteLine($"Execution Time: {s.ElapsedMilliseconds} ms");
+
+            // log how long the image took to manipulate
+            Console.WriteLine($"Image manipulation took: {s.ElapsedMilliseconds} ms");
         }
 
         // set up the window and image
         private void SetupWindow() {
-            // resize the screen to fit the image
-            float width = Picture.Image.Width;
-            float height = Picture.Image.Height;
+            // if the bitmap list is empty
+            if (bmps.Count == 0) {
+                //  hide the apply filter, export and restart buttons
+                btnApplyFilter.Hide();
+                btnExportImage.Hide();
+                btnRestart.Hide();
+                // show the load image button
+                btnLoadImage.Show();
 
-            if (width > Screen.PrimaryScreen.WorkingArea.Width) {
-                height = MAX_IMAGE_WIDTH / width * height;
-                width = MAX_IMAGE_WIDTH;
+                // set the size of the form and picture box
+                this.Size = new Size(640, 360);
+                Picture.Size = new Size(600, 200);
+            } 
+            // if the bitmap list contains sections
+            else {
+                // resize the screen to fit the image
+                float width = Picture.Image.Width;
+                float height = Picture.Image.Height;
+
+                // if the width is bigger than the width area of the screen
+                if (width > Screen.PrimaryScreen.WorkingArea.Width) {
+                    height = MAX_IMAGE_WIDTH / width * height;
+                    width = MAX_IMAGE_WIDTH;
+                }
+                // if the height is bigger than the working height of the screen
+                if (height > Screen.PrimaryScreen.WorkingArea.Height) {
+                    width = (MAX_IMAGE_HEIGHT / height) * width;
+                    height = MAX_IMAGE_HEIGHT;
+                }
+
+                // log the dimensions of the image
+                Console.WriteLine("Width: " + width + ", Height: " + height);
+
+                // calculate the new height of the image
+                int imageWidth = (int)Math.Floor((double)width);
+                int imageHeight = (int)Math.Floor((double)height);
+
+                // resize and reposition the image
+                Picture.SizeMode = PictureBoxSizeMode.Zoom;
+                Picture.Size = new Size(imageWidth, imageHeight);
+                Picture.Location = new Point(0, 0);
+
+                // set the size of the form to add space for some butons
+                this.Size = new Size(imageWidth, imageHeight + 120);
+
+                // hide the apply filter and load image buttons
+                btnApplyFilter.Hide();
+                btnLoadImage.Hide();
+
+                // show the export image and restart buttons
+                btnExportImage.Show();
+                btnRestart.Show();
             }
-            if (height > Screen.PrimaryScreen.WorkingArea.Height) {
-                width = (MAX_IMAGE_HEIGHT / height) * width;
-                height = MAX_IMAGE_HEIGHT;
-            }
 
-            Console.WriteLine("Width: " + width + ", Height: " + height);
+            // center the form to the screen
+            CenterToScreen();
+        }
+        
+        // when the load image button is pressed
+        private void btnLoadImage_Click(object sender, EventArgs e) {
+            // load the image and show the filter button
+            LoadImage();
+            btnApplyFilter.Show();
+        }
 
-            int widthI = (int) Math.Floor((double) width);
-            int heightI = (int) Math.Floor((double) height);
+        // when the apply filter button is pressed
+        private void btnApplyFilter_Click(object sender, EventArgs e) {
+            // manipulate the image
+            ManipulateImage();
+        }
 
-            // resize and reposition the image
-            Picture.SizeMode = PictureBoxSizeMode.Zoom;
-            Picture.Size = new Size(widthI, heightI);
-            Picture.Location = new Point(0, 0);
+        // when the export image button is pressed
+        private void btnExportImage_Click(object sender, EventArgs e) {
+            // save the image
+            SaveImage();
+        }
+
+        // when the restart button is pressed
+        private void btnRestart_Click(object sender, EventArgs e) {
+            // restart the program
+            StartProgram();
         }
     }
 
