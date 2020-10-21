@@ -1,6 +1,8 @@
 # comp120-tinkering-graphics
-This is the Tinkering Graphics project.
-You complete this project in C#, following the Tinkering Graphics workshop activities and the algorithms on LearningSpace.
+
+This code has been written as part of the Tinkering Graphics tasks in the COMP120 module at Falmouth University. 
+This is a social Media Filter that could be integrated into any social media app.
+
 
 Usage Instructions:
 - Launch program
