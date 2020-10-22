@@ -290,7 +290,7 @@ namespace FilterSocialMedia {
             StartProgram();
         }
     }
-
+    //starting a new class
     public static class Greyscale {
 
         // make the image greyscale
@@ -332,7 +332,7 @@ namespace FilterSocialMedia {
             }
         }
     }
-
+    //starting a new class
     public static class SwapChannels {
 
         // different color channels and their corresponding location values (DO NOT CHANGE)
@@ -396,8 +396,8 @@ namespace FilterSocialMedia {
             }
         }
     }
-
-    public static class Mirror {
+    //starting a new class
+    public static class Mirror { 
 
         // mirroring the images vertically
         public static Bitmap Single(Bitmap bmp) {
@@ -438,7 +438,7 @@ namespace FilterSocialMedia {
             }
         }
     }
-
+    //starting a new class
     public static class Negative {
         // make images negative
         public static Bitmap Single(Bitmap bmp) {
@@ -487,7 +487,7 @@ namespace FilterSocialMedia {
             }
         }
     }
-
+    //starting a new class
     public static class ImageTool {
         // split up images into several bitmaps
         public static void Split(Bitmap bmp, int splits) {
