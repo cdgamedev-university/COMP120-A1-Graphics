@@ -1,3 +1,8 @@
+# After submission update:
+Authors: Hayley Davies & Ross Hewitt
+Marks On Submission: 66/100
+University Grade: Second
+
 # comp120-tinkering-graphics
 
 This code has been written as part of the Tinkering Graphics tasks in the COMP120 module at Falmouth University. 
